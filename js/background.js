@@ -22,7 +22,9 @@ chrome.browserAction.onClicked.addListener(function(tab) {
                 // Begin accessing JSON data here
                 var data = JSON.parse(this.response);
                 console.log(data.title);
-                console.log(data.content);
+                
+                // Strips HTML from the content
+                console.log(data.content.replace(/<(?:.|\n)*?>/gm, ''));
             }
 
             request.send();
