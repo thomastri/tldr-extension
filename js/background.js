@@ -8,18 +8,21 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         });
 
         chrome.browserAction.onClicked.addListener(function() {
-            alert('What should we name the worm? I was thinking Senior is a good, wise name');
-
+            console.log('What should we name the worm? I was thinking Senior is a good, wise name');
             // request to make API call
             var request = new XMLHttpRequest();
-            request.open('GET', 'hhttps://mercury.postlight.com/parser?url=' + window.location.href);
+            //var url = window.location.href;
+            var url = 'https://news.avclub.com/folks-let-s-do-this-snowpiercer-is-a-sequel-to-willy-1829467096';
+
+            request.open('GET', 'https://mercury.postlight.com/parser?url=' + url);
             request.setRequestHeader('Content-Type', 'application/json');
             request.setRequestHeader('x-api-key', 'Rp4Axlhwp4u5NFIM5wCkrjsNt2UgBXBnL9sGyX7f');
 
             request.onload = function() {
                 // Begin accessing JSON data here
                 var data = JSON.parse(this.response);
-                console.log('test');
+                console.log(data.title);
+                console.log(data.content);
             }
 
             request.send();
