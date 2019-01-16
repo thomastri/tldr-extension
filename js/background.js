@@ -27,7 +27,13 @@ chrome.browserAction.onClicked.addListener(function(tab) {
                 console.log(data.content.replace(/<(?:.|\n)*?>/gm, ''));
             }
 
-            request.send();
+            const awsRequest = new XMLHttpRequest();
+            awsRequest.open('GET', 'https://jldsffc2v5.execute-api.us-east-1.amazonaws.com/prod/tldrService');
+            awsRequest.setRequestHeader('x-api-key', '7hsKqeBVCv5xxfGu6IRl39jJf4ZWMJ1079Mfr2Wu');
+
+            //request.send();
+            awsRequest.send();
+            console.log(awsRequest);
         })
     });
 });
