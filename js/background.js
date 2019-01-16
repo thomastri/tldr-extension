@@ -2,7 +2,7 @@
 chrome.browserAction.onClicked.addListener(function (tab) {
     // Send a message to the active tab
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        var activeTab = tabs[0];
+        const activeTab = tabs[0];
         chrome.tabs.sendMessage(activeTab.id, {
             "message": "clicked_browser_action"
         });
@@ -10,9 +10,9 @@ chrome.browserAction.onClicked.addListener(function (tab) {
         chrome.browserAction.onClicked.addListener(function () {
             console.log('What should we name the worm? I was thinking Senior is a good, wise name');
             // request to make API call
-            var request = new XMLHttpRequest();
+            const request = new XMLHttpRequest();
             //var url = window.location.href;
-            var url = 'https://news.avclub.com/folks-let-s-do-this-snowpiercer-is-a-sequel-to-willy-1829467096';
+            const url = 'https://news.avclub.com/folks-let-s-do-this-snowpiercer-is-a-sequel-to-willy-1829467096';
 
             request.open('GET', 'https://mercury.postlight.com/parser?url=' + url);
             request.setRequestHeader('Content-Type', 'application/json');
@@ -20,7 +20,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 
             request.onload = function () {
                 // Begin accessing JSON data here
-                var data = JSON.parse(this.response);
+                const data = JSON.parse(this.response);
                 console.log(data.title);
 
                 // Strips HTML from the content
