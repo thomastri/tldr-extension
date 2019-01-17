@@ -5,8 +5,8 @@ chrome.runtime.onMessage.addListener(
             console.log(url);
 
             summarize(url, function(result) {
-              console.log(result);
-              reduce();
+                console.log(result);
+                //reduce(result);
             });
 
         }
@@ -24,9 +24,11 @@ function summarize(url, callback) {
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader('x-api-key', 'Rp4Axlhwp4u5NFIM5wCkrjsNt2UgBXBnL9sGyX7f');
 
+    const htmlTagRegex = /<(?:.|\n)*?>/gm;
+    const escapedHTMLChar = /&(?:.|\n)*?;/gm;
     //var data;
     request.onload = function () {
-        callback(JSON.parse(this.response).content.replace(/<(?:.|\n)*?>/gm, ''));
+        callback(JSON.parse(this.response).content.replace(htmlTagRegex, '').replace(escapedHTMLChar, ''));
     };
     request.send();
 }
@@ -34,11 +36,10 @@ function summarize(url, callback) {
 /**
  * Condense the summary into a couple sentences
  */
-function reduce() {
+function reduce(summary) {
     const awsRequest = new XMLHttpRequest();
-    awsRequest.open('GET', 'https://jldsffc2v5.execute-api.us-east-1.amazonaws.com/prod/tldrService');
+    awsRequest.open('PUT', 'https://jldsffc2v5.execute-api.us-east-1.amazonaws.com/prod/tldrService');
     awsRequest.setRequestHeader('x-api-key', '7hsKqeBVCv5xxfGu6IRl39jJf4ZWMJ1079Mfr2Wu');
-
-    awsRequest.send();
+    awsRequest.send('{"summary":"' + summary + '"}');
     console.log(awsRequest);
 }
