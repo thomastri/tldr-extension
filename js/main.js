@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener(
 
             summarize(url, function(result) {
                 console.log(result);
-                //reduce(result);
+                reduce(result);
             });
 
         }
@@ -26,9 +26,14 @@ function summarize(url, callback) {
 
     const htmlTagRegex = /<(?:.|\n)*?>/gm;
     const escapedHTMLChar = /&(?:.|\n)*?;/gm;
+    const nonSpaceWhitespace = /[^\S ]+/gm;
     //var data;
     request.onload = function () {
-        callback(JSON.parse(this.response).content.replace(htmlTagRegex, '').replace(escapedHTMLChar, ''));
+        callback(JSON.parse(this.response).content
+            .replace(htmlTagRegex, '')
+            .replace(escapedHTMLChar, '')
+            .replace(nonSpaceWhitespace, '')
+        );
     };
     request.send();
 }
