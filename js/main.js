@@ -4,18 +4,21 @@ chrome.runtime.onMessage.addListener(
             const url = message.url;
             console.log(url);
 
-            // since my pea brain can't understand callbacks we're gonna have this shit for the time being
             summarize(url, function(result) {
               console.log(result);
-              //reduce();
+              reduce();
             });
 
         }
     }
 );
 
+/**
+ * Summarize a url via the postlight api and return via the function "callback" which accepts a single string as a param
+ * @param url - page to summarize
+ * @param callback - function that has a single parameter which will contain the summary in string form
+ */
 function summarize(url, callback) {
-    // request to make API call
     const request = new XMLHttpRequest();
     request.open('GET', 'https://mercury.postlight.com/parser?url=' + url);
     request.setRequestHeader('Content-Type', 'application/json');
@@ -28,6 +31,9 @@ function summarize(url, callback) {
     request.send();
 }
 
+/**
+ * Condense the summary into a couple sentences
+ */
 function reduce() {
     const awsRequest = new XMLHttpRequest();
     awsRequest.open('GET', 'https://jldsffc2v5.execute-api.us-east-1.amazonaws.com/prod/tldrService');
