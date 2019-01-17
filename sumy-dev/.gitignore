@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[co]
+*.egg-info
+/build
+/dist
+
+# working folders
+/experiments/
+
+# IDE files, .coverage, .pytest_cache, ...
+.*
+!.travis.yml
+!.gitignore
