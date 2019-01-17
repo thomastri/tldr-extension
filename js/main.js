@@ -5,8 +5,10 @@ chrome.runtime.onMessage.addListener(
             console.log(url);
 
             summarize(url, function(result) {
-                console.log(result);
-                reduce(result);
+                reduce(result, function(result) {
+                    //console.log(result);
+                    alert(result);
+                });
             });
 
         }
@@ -41,10 +43,12 @@ function summarize(url, callback) {
 /**
  * Condense the summary into a couple sentences
  */
-function reduce(summary) {
+function reduce(summary, callback) {
     const awsRequest = new XMLHttpRequest();
     awsRequest.open('PUT', 'https://jldsffc2v5.execute-api.us-east-1.amazonaws.com/prod/tldrService');
     awsRequest.setRequestHeader('x-api-key', '7hsKqeBVCv5xxfGu6IRl39jJf4ZWMJ1079Mfr2Wu');
+    awsRequest.onload = function () {
+        callback(this.response);
+    };
     awsRequest.send('{"summary":"' + summary + '"}');
-    console.log(awsRequest);
 }
