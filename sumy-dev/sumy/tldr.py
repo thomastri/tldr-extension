@@ -23,6 +23,7 @@ if __name__ == "__main__":
     summarizer = Summarizer(stemmer)
     summarizer.stop_words = get_stop_words(LANGUAGE)
 
+    # test
     print("\n")
     for sentence in summarizer(parser.document, SENTENCES_COUNT):
         print(sentence)
