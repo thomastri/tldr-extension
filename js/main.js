@@ -4,10 +4,23 @@ chrome.runtime.onMessage.addListener(
             const url = message.url;
             console.log(url);
 
-            summarize(url, function(result) {
-                reduce(result, function(result) {
-                    //console.log(result);
+            // Open pop-up window with our custom HTML
+            window.open('', 'app', 'resizable=yes,height=400,width=400');
+
+            /*
+            TODO:
+            - get new popup window to load html/popup.html
+            - populate popup.html with 'result' from our API
+            - get good at front end
+            */
+
+
+            // window.document.body.insertAdjacentHTML('afterbegin', 'html/popup.html')
+
+            summarize(url, function (result) {
+                reduce(result, function (result) {
                     alert(result);
+                    // window.document.write(result);
                 });
             });
 
