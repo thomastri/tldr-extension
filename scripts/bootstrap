@@ -1,0 +1,12 @@
+#!/bin/sh
+cd $LAMBDA_TASK_ROOT
+ls -la .
+ls -la env2/Scripts/
+which python
+source env2/Scripts/activate
+which python
+python -c "print('hello')"
+deactivate
+source env2/Scripts/activate
+python -c "import sumy.evaluation; print(sumy.evaluation.__version__)"
+deactivate
