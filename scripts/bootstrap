@@ -1,7 +1,0 @@
-#!/bin/sh
-cd $LAMBDA_TASK_ROOT
-which python
-source ./env/bin/activate
-which python
-deactivate
-env/bin/python -c "import sumy.evaluation; print(sumy.__version__)"
